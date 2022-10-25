@@ -1,0 +1,210 @@
+/*====================================================
+    author-area
+ ====================================================*/
+.author-area {
+  background-image: url("../images/hero-bg.jpg");
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  .author-slider {
+    .owl-nav {
+      color: $theme-color;
+      div {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        @include border-radius(50%);
+        background-color: $color-light;
+        @include box-shadow(0 0 40px rgba(82, 85, 90, 0.2));
+        line-height: 40px;
+        text-align: center;
+        font-size: $display-4;
+        margin-top: -70px;
+        @include transition(0.3s);
+        @media #{$large_mobile_two} {
+          top: auto;
+          bottom: 0;
+          margin-top: 0;
+          margin-bottom: -65px;
+        }
+        &:hover {
+          background-color: $theme-color-2;
+          color: $color-light;
+        }
+        &.owl-prev {
+          right: 45px;
+        }
+      }
+    }
+  }
+  &:before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $theme-color;
+    opacity: 0.9;
+    z-index: -1;
+  }
+}
+
+.author-bio{
+  position: relative;
+  img {
+    width: 80px !important;
+    height: 80px;
+    @include border-radius(50%);
+    border: 5px solid $color-light;
+    @include box-shadow(0 0 40px rgba(82, 85, 90, 0.2));
+    margin-right: 15px;
+  }
+  .author__title {
+    display: block;
+    text-transform: capitalize;
+    color: $theme-color;
+    font-weight: $font-weight-semi-bold;
+    font-size: $display-4;
+    padding-bottom: 8px;
+  }
+  .author__meta {
+    font-weight: $font-weight-medium;
+    color: $theme-color-4;
+    li {
+      display: inline-block;
+      font-size: $default-font-4;
+      text-transform: capitalize;
+    }
+  }
+  .author-type {
+    @include border-radius(4px);
+    padding: 4px 10px;
+  }
+  .elite-author {
+    background: rgba(249,184,81,0.10);
+    color: $color-5;
+  }
+  .power-author {
+    background: rgba(40,213,167,0.10);
+    color: $color-4;
+  }
+}
+.author-action {
+  border-top: 1px solid $color-light-grey;
+  border-bottom: 1px solid $color-light-grey;
+  .author__list {
+    @media #{$small_mobile_two} {
+      height: 70px;
+    }
+    li {
+      display: inline-block;
+      color: $theme-color-4;
+      font-size: $default-font-3;
+      font-weight: $font-weight-medium;
+      padding: 10px 15px 10px 15px;
+      border-right: 2px solid $color-light-grey;
+      @media #{$small_mobile_two} {
+        width: 33%;
+        float: left;
+        font-size: $default-font-4;
+      }
+      span {
+        display: block;
+        color: $theme-color;
+        margin-bottom: 2px;
+      }
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
+        border-right: none;
+      }
+    }
+  }
+}
+.author-btn {
+  text-align: center;
+  margin-top: 30px;
+  .theme-btn {
+    background-color: $color-light;
+    border: 1px solid $theme-color-4;
+    color: $theme-color;
+    outline: none;
+    span {
+      font-size: $default-font;
+    }
+    &:hover {
+      background-color: rgba(128, 137, 150, 0.2);
+    }
+  }
+}
+.author-item {
+  background-color: $color-light;
+  @include box-shadow(0 0 40px rgba(82, 85, 90, 0.1));
+  @include border-radius(4px);
+  padding: 30px 20px 30px 20px;
+  position: relative;
+}
+
+/*====================================================
+    user-profile-area
+ ====================================================*/
+.user-content {
+  border: 1px solid rgba(128, 137, 150, 0.2);
+  @include border-radius(2px);
+  background-color: $color-light;
+  @include box-shadow(0 0 18px 0 rgba(0,0,0,.04));
+  padding: 30px;
+  @media #{$tab_device} {
+    margin-bottom: 50px;
+  }
+  @media #{$large_mobile} {
+    margin-bottom: 50px;
+  }
+  @media #{$small_mobile} {
+    margin-bottom: 50px;
+  }
+  .user-item {
+    .user__label {
+      font-size: $default-font;
+      color: $theme-color-4;
+      font-weight: $font-weight-medium;
+      margin-bottom: 5px;
+    }
+    .userlist__number {
+      font-size: $display-4;
+      font-weight: $font-weight-bold;
+      color: $theme-color;
+    }
+  }
+  .user-details {
+    .author-review {
+      margin-right: 15px;
+      border-right: 1px solid #ddd;
+      padding-right: 15px;
+    }
+  }
+}
+/*====================================================
+    top-author-area
+ ====================================================*/
+.top-author-area {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

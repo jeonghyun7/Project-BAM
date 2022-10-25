@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.HeartMapper">
+
+	<select id="select_heart"
+		resultType="com.bam.model.HeartAndCampAndImg"
+		parameterType="hashmap">
+		<![CDATA[
+		select * from HEART H inner join CAMP C
+		on H.camp_idx=C.camp_idx inner join IMG I
+		on H.camp_idx=I.camp_idx
+		where H.EMAIL=#{email} and I.division='thumb'
+		order by C.camp_name desc limit #{page.startRow},#{page.endRow}
+		]]>
+	</select>
+
+	<select id="select_heart_count" resultType="long">
+		select count(*) from HEART H inner join CAMP C
+		on H.camp_idx=C.camp_idx inner join IMG I
+		on H.camp_idx=I.camp_idx
+		where H.EMAIL=#{email} and
+		I.division='thumb' order by C.camp_name desc
+	</select>
+
+	<!-- 캠핑장 찜수 검색 -->
+	<select id="selectHeart" parameterType="int" resultType="int">
+		select COUNT(*) from HEART where CAMP_IDX=#{camp_idx}
+	</select>
+	
+	<!-- 해당회원의 캠핑장 찜수 검색 -->
+	<select id="selectOwnHeart" parameterType="hashmap" resultType="Heart">
+		select * from HEART where CAMP_IDX=#{camp_idx} and EMAIL=#{email}
+	</select>
+	
+	<!-- 캠핑장 찜하기 액션-->
+	<insert id="insertHeart" parameterType="hashmap">
+		insert into HEART values(nextval(HEART_SEQ), #{email}, #{camp_idx})
+	</insert>
+	
+	<!-- 캠프장 찜하기 취소 액션-->
+	<delete id="deleteHeart" parameterType="hashmap">
+		delete from HEART where EMAIL=#{email} and CAMP_IDX=#{camp_idx}
+	</delete>
+</mapper>

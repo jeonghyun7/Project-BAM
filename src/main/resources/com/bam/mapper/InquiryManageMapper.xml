@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.InquiryManageMapper"><!-- route of mapping to java -->
+	<select id="selectInquiryAndState" resultType="Inquiry" parameterType="hashmap">
+	    <![CDATA[
+		select * from INQUIRY join I_STATE on INQUIRY.S_NO = I_STATE.S_NO
+		limit #{page.startRow},#{page.endRow}
+		]]>
+	</select>
+	
+	<select id="selectCountInquiry" resultType="int">
+		select count(*) from INQUIRY join I_STATE on INQUIRY.S_NO = I_STATE.S_NO
+	</select>
+	
+	<select id="selectInquiryOne" resultType="Inquiry" parameterType="int">
+		select * from INQUIRY join I_STATE on INQUIRY.S_NO = I_STATE.S_NO inner join MEMBER on INQUIRY.EMAIL = MEMBER.EMAIL
+		where INQUIRY.INQ_IDX = #{inq_idx}
+	</select>
+	
+	<update id="updateInquiry" parameterType="int">
+		update INQUIRY set S_NO = 2 where INQ_IDX = #{inq_idx}
+	</update>
+	
+	<update id="updateInquiredMember" parameterType="String">
+		update MEMBER set A_NO = 2 where EMAIL = #{email}
+	</update>
+	
+	<insert id="insertOwner" parameterType="Inquiry">
+		insert into OWNER values(#{email}, null, #{name}, #{owner_num}, #{com_name}, #{com_addr}, #{com_tel})
+	</insert>
+	
+	<delete id="deleteInquiry" parameterType="int">
+		delete from INQUIRY where INQ_IDX = #{inq_idx}
+	</delete>
+	
+	<select id="selectInquiryByKeyword" resultType="Inquiry" parameterType="hashMap">
+		<choose>
+			<when test="category == 'email'">
+				select * from INQUIRY join I_STATE on INQUIRY.S_NO = I_STATE.S_NO
+				where INQUIRY.EMAIL like concat('%',#{keyword},'%')
+			</when>
+			<when test="category == 'title'">
+ 				select * from INQUIRY join I_STATE on INQUIRY.S_NO = I_STATE.S_NO
+				where INQUIRY.TITLE like concat('%',#{keyword},'%')
+			</when>
+		</choose>
+		 <![CDATA[
+		 limit #{page.startRow},#{page.endRow}
+		]]>
+	</select>
+	
+	<select id="selectCountInquiryByKeyword" resultType="int" parameterType="hashMap">
+		<choose>
+			<when test="category == 'email'">
+ 				select count(*) from INQUIRY join I_STATE on INQUIRY.S_NO = I_STATE.S_NO
+				where INQUIRY.EMAIL like concat('%',#{keyword},'%')
+			</when>
+			<when test="category == 'title'">
+				select * from INQUIRY join I_STATE on INQUIRY.S_NO = I_STATE.S_NO
+				where INQUIRY.TITLE like concat('%',#{keyword},'%')
+			</when>
+		</choose>
+	</select>
+</mapper>

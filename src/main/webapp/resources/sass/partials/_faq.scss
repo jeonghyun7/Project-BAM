@@ -1,0 +1,72 @@
+/*====================================================
+    faq area
+ ====================================================*/
+.accordion-item {
+  .card:not(:last-of-type),
+  .card:not(:first-of-type){
+    @include border-radius(30px);
+    border-bottom: 1px solid rgba(128, 137, 150, 0.2);
+  }
+  .card {
+    @include box-shadow(0 0 14px rgba(82, 85, 90, 0.01));
+    border-color: rgba(128, 137, 150, 0.3);
+    .btn {
+      width: 100%;
+      text-align: left;
+      color: $theme-color;
+      font-size: $display-4;
+      font-weight: $font-weight-semi-bold;
+      text-decoration: none;
+      padding: 14px 30px;
+      @media #{$small_mobile_five} {
+        font-size: $default-font;
+      }
+      i {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        @include border-radius(50%);
+        background-color: $theme-color;
+        @include box-shadow(0px 0px 0px 5px rgba(82, 85, 90, 0.1));
+        color: $color-light;
+        text-align: center;
+        @include transition(0.3s);
+        font-size: $default-font;
+        display: none;
+      }
+    }
+    .btn[aria-expanded=false] i.fa.fa-plus {
+      display: block;
+    }
+    .btn[aria-expanded=true] i.fa.fa-minus {
+      display: block;
+    }
+    .card-header {
+      padding: 0;
+      background-color: $color-light;
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .card-body {
+      padding: 0 30px 25px 30px;
+      font-weight: $font-weight-medium;
+      line-height: 26px;
+    }
+  }
+}
+.faq-area {
+  .accordion-item {
+    @media #{$tab_device} {
+      margin-bottom: 40px;
+      padding-right: 0 !important;
+    }
+    @media #{$large_mobile} {
+      margin-bottom: 40px;
+      padding-right: 0 !important;
+    }
+    @media #{$small_mobile} {
+      margin-bottom: 40px;
+      padding-right: 0 !important;
+    }
+  }
+}

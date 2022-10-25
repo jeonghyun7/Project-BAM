@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 여기서 매퍼 네임스페이스는 인터페이스 파일로 받아와야 함 -->
+<mapper namespace="com.bam.mapper.BookingMapper">
+
+	<select id="select_booking"
+		resultType="com.bam.model.BookingAndCampAndImg"
+		parameterType="hashmap">
+	    <![CDATA[
+	    select * from BOOKING B inner join CAMP C on
+		B.camp_idx=C.camp_idx inner join
+		IMG I on B.camp_idx=I.camp_idx
+		where B.EMAIL=#{email} and i.division='thumb' order by
+		B.check_out desc limit #{page.startRow},#{page.endRow}
+		]]>
+	</select>
+	
+	<!-- 예약 내역 조회 -->
+	<select id="select_booking_count" resultType="long">
+		select count(*) from BOOKING B inner join CAMP C
+		on
+		B.camp_idx=C.camp_idx inner join
+		IMG I on B.camp_idx=I.camp_idx
+		where
+		B.EMAIL=#{email} and
+		i.division='thumb' order by
+		B.BDATE desc
+	</select>
+	
+	<!-- review_state 상태 변경 -->
+	<update id="update_state" parameterType="String">
+		update BOOKING set review_state = 'T' where imp_uid = #{imp_uid}
+	</update>
+
+	<!-- 캠핑장 결제 완료 시 예약 insert -->
+	<insert id="insertBooking" parameterType="Booking">
+ 		insert into BOOKING values(#{imp_uid},#{email},#{camp_idx},#{sort_idx},1,#{total_fee},SYSDATE(),#{check_in},#{check_out},#{tel},#{memo},#{p_num},'F',#{name},#{service_fee},'F',#{pay_fee},#{use_point},#{save_point})
+	</insert>
+	
+	<!-- 포인트 사용 시 포인트 업데이트 -->
+	<update id="updatePoint" parameterType="hashmap">
+		update MEMBER set POINT = #{point} where EMAIL = #{email}
+	</update>
+	
+	<!-- 회원 등급별 포인트 지급을 위한 회원의 상태 알아보는 select -->
+	<select id="selectMemberGrade" parameterType="String" resultType="String">
+		select GRADE from MEMBER where EMAIL=#{email}
+	</select>
+	
+	<!--환불 시 BOOKING의 S_NO=2로(상태번호 = 취소완료)-->
+	<update id="updateS_no" parameterType="String">
+		update BOOKING set S_NO=2 where IMP_UID=#{imp_uid}
+	</update>
+	
+	<select id="selectBookingOne" parameterType="String" resultType="Booking">
+		select * from BOOKING where IMP_UID = #{imp_uid}
+	</select>
+	
+	<update id="plusTotalBooking" parameterType="int">
+		update CAMP set TOTAL_BOOKING = ((select ifnull(TOTAL_BOOKING, 0) from CAMP where CAMP_IDX = #{camp_idx})+1) where CAMP_IDX = #{camp_idx}
+	</update>
+	
+	<update id="minusTotalBooking" parameterType="int">
+		update CAMP set TOTAL_BOOKING = ((select ifnull(TOTAL_BOOKING, 0) from CAMP where CAMP_IDX = #{camp_idx})-1) where CAMP_IDX = #{camp_idx}
+	</update>
+</mapper>

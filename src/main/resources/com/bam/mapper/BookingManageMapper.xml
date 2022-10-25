@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 여기서 매퍼 네임스페이스는 인터페이스 파일로 받아와야 함 -->
+
+<mapper namespace="com.bam.mapper.BookingManageMapper">
+	<!-- 사업자의 캠핑장 일련번호 쿼리생성 -->
+	<select id="select_owner_camp" resultType="Camp" parameterType="String">
+		select * from OWNER join CAMP on OWNER.CAMP_IDX = CAMP.CAMP_IDX where EMAIL = #{email}
+	</select>
+	<!--오늘 날짜에 예약된 예약데이터의 총 개수 요청하는 쿼리 -->
+	<select id="select_count_booking_list" resultType="long" parameterType="hashmap">
+		<choose>
+			<when test="@com.bam.utils.MyBatisCheck@notEmpty(search)">
+				<choose>
+					<when test='category.equals("name")'>
+						<![CDATA[
+						select ifnull(count(*), 0) from BOOKING join B_STATE on BOOKING.S_NO = B_STATE.S_NO
+						where CAMP_IDX = #{camp_idx} and BOOKING.S_NO = 1
+						and NAME like Concat('%',#{keyword},'%')
+						]]>
+					</when>
+					<when test='category.equals("tel")'>
+						<![CDATA[
+						select ifnull(count(*), 0) from BOOKING join B_STATE on BOOKING.S_NO = B_STATE.S_NO
+						where CAMP_IDX = #{camp_idx} and BOOKING.S_NO = 1
+						and TEL like Concat('%',#{keyword},'%')
+						]]>
+					</when>
+				</choose>
+			</when>
+			<otherwise>
+				<![CDATA[
+				select ifnull(count(*), 0) from BOOKING join B_STATE on BOOKING.S_NO = B_STATE.S_NO
+				where CAMP_IDX = #{camp_idx} and BOOKING.S_NO = 1
+				]]>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--오늘 날짜에 예약된 예약데이터를 요청하는 쿼리  -->
+	<select id="select_booking_list" resultType="com.bam.model.BookingInfo" parameterType="hashmap">
+		<choose>
+			<when test="@com.bam.utils.MyBatisCheck@notEmpty(search)">
+				<choose>
+					<when test='category.equals("name")'>
+						<![CDATA[
+						select * from BOOKING join B_STATE on BOOKING.S_NO = B_STATE.S_NO
+						join CAMP on BOOKING.CAMP_IDX = CAMP.CAMP_IDX
+						join SORT on BOOKING.SORT_IDX = SORT.SORT_IDX
+						where BOOKING.CAMP_IDX = #{camp_idx} and BOOKING.S_NO = 1
+						and BOOKING.NAME like Concat('%',#{keyword},'%') limit #{page.startRow}, #{page.endRow}
+						]]>
+					</when>
+					<when test='category.equals("tel")'>
+						<![CDATA[
+						select * from BOOKING join B_STATE on BOOKING.S_NO = B_STATE.S_NO
+						join CAMP on BOOKING.CAMP_IDX = CAMP.CAMP_IDX
+						join SORT on BOOKING.SORT_IDX = SORT.SORT_IDX
+						where BOOKING.CAMP_IDX = #{camp_idx} and BOOKING.S_NO = 1
+						and BOOKING.TEL like Concat('%',#{keyword},'%') limit #{page.startRow}, #{page.endRow}
+						]]>
+					</when>
+				</choose>
+			</when>
+			<otherwise>
+				<![CDATA[
+				select * from BOOKING join B_STATE on BOOKING.S_NO = B_STATE.S_NO
+				join CAMP on BOOKING.CAMP_IDX = CAMP.CAMP_IDX
+				join SORT on BOOKING.SORT_IDX = SORT.SORT_IDX
+				where BOOKING.CAMP_IDX = #{camp_idx} and BOOKING.S_NO = 1
+				limit #{page.startRow}, #{page.endRow}
+				]]>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 미완료된 예약데이터의 개수를 요청 -->	
+	<select id="select_count_using_state" resultType="int" parameterType="hashmap">
+		<![CDATA[
+		select ifnull(count(*), 0) from BOOKING
+		where CAMP_IDX = #{camp_idx} and USING_STATE = #{using_state} and S_NO = 1
+		]]>
+	</select>
+	
+	<update id="update_using_state" parameterType="hashmap">
+		update BOOKING set USING_STATE = #{using_state} where IMP_UID = #{imp_uid}
+	</update>
+</mapper>

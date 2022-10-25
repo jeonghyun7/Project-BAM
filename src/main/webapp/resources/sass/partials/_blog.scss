@@ -1,0 +1,59 @@
+/*====================================================
+    blog-area
+ ====================================================*/
+.blog-area {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  .btn-box {
+    @media #{$tab_device} {
+      -ms-flex-pack: start !important;
+      justify-content: start !important;
+    }
+     @media #{$large_mobile} {
+      -ms-flex-pack: start !important;
+      justify-content: start !important;
+    }
+     @media #{$small_mobile} {
+      -ms-flex-pack: start !important;
+      justify-content: start !important;
+    }
+    .theme-btn {
+      @media #{$tab_device} {
+        margin-top: 30px;
+      }
+      @media #{$large_mobile} {
+        margin-top: 30px;
+      }
+      @media #{$small_mobile} {
+        margin-top: 30px;
+      }
+    }
+  }
+  &:before,
+  &:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 40%;
+    background-image: url("../images/dots.png");
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    @include transform(rotate(-45deg));
+    opacity: 0.1;
+    @media #{$large_mobile_three} {
+      display: none;
+    }
+  }
+  &:after {
+    top: auto;
+    left: auto;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+

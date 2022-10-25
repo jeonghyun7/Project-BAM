@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+   <typeAliases>
+   	   <typeAlias alias="Admin" type="com.bam.model.Admin"/>
+   	   <typeAlias alias="Authority" type="com.bam.model.Authority"/>
+   	   <typeAlias alias="Booking" type="com.bam.model.Booking"/>
+   	   <typeAlias alias="Camp" type="com.bam.model.Camp"/>
+   	   <typeAlias alias="CampAndImg" type="com.bam.model.CampAndImg"/>
+   	   <typeAlias alias="CampAndEtc" type="com.bam.model.CampAndEtc"/>
+   	   <typeAlias alias="Heart" type="com.bam.model.Heart"/>  	
+   	   <typeAlias alias="Img" type="com.bam.model.Img"/>  	
+   	   <typeAlias alias="Inquiry" type="com.bam.model.Inquiry"/>  	
+   	   <typeAlias alias="LMember" type="com.bam.model.LMember"/>  	
+   	   <typeAlias alias="Member" type="com.bam.model.Member"/>  	
+   	   <typeAlias alias="Owner" type="com.bam.model.Owner"/>  	
+   	   <typeAlias alias="Review" type="com.bam.model.Review"/>  	
+   	   <typeAlias alias="Sort" type="com.bam.model.Sort"/>
+   	   <typeAlias alias="Revenue" type="com.bam.model.Revenue"/>
+   </typeAliases>
+</configuration>

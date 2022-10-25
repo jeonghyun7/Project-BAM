@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.CampMapper">
+
+   <!-- 캠핑장 정보, 이미지, 별점평균, 찜 횟수(at index.jsp) -->
+   <select id="selectCampAndEtc" resultType="CampAndEtc">
+      <![CDATA[
+         select * from CAMP left outer join img on CAMP.CAMP_IDX = img.CAMP_IDX
+         left outer join (select CAMP_IDX, count(CAMP_IDX) countHeart from HEART group by CAMP_IDX) cc on CAMP.CAMP_IDX = cc.CAMP_IDX
+         left outer join (select avg(STAR) avgStar, CAMP_IDX from REVIEW group by CAMP_IDX) bb on CAMP.CAMP_IDX = bb.CAMP_IDX 
+         WHERE IMG.DIVISION='thumb' order by TOTAL_BOOKING DESC limit 6
+      ]]>
+   </select>
+   
+   <!-- camp_idx에 해당하는 캠핑장 정보 검색 -->
+   <select id="selectCampInfo" parameterType="int" resultType="Camp">
+      select * from CAMP where CAMP_IDX=#{camp_idx}
+   </select>
+   
+   <!-- 캠핑장 상세사진 띄우기-->
+   <select id="selectDetail" parameterType="int" resultType="Img">
+      select * from IMG where CAMP_IDX=#{camp_idx} and DIVISION='detail' 
+   </select>
+
+   <!-- 캠핑장 전체 목록 검색 -->
+   <select id="selectCamp" resultType="Camp">
+      select * from CAMP
+   </select>
+
+   <!-- 캠핑장 키워드 별 검색(캠핑장명) -->
+   <select id="selectCampByName" resultType="Camp">
+      select * from Camp where CAMP_NAME like concat('%',#{keyword},'%') order by CAMP_NAME asc
+   </select> 
+
+   <!-- 캠핑장 키워드 별 검색(캠핑장위치) -->
+   <select id="selectCampByAddress" resultType="Camp">
+      select * from Camp where ADDRESS like concat('%',#{keyword},'%') order by ADDRESS asc
+   </select> 
+
+   <!-- 캠핑장 등록 -->
+   <insert id="insertCamp" parameterType="Camp">
+      insert into CAMP values(nextval(CAMP_SEQ), #{camp_name}, #{address}, #{camp_tel}, #{site_num}, #{full_num}, #{parking}, #{conv}, #{sec_conv}, #{etc_conv}, #{agency_tel}, #{agency_name}, #{intro})
+   </insert>
+
+   <!-- 캠핑장 수정 -->
+   <update id="updateCamp" parameterType="Camp">
+      update CAMP set CAMP_NAME=#{camp_name}, ADDRESS=#{address}, CAMP_TEL=#{camp_tel}, 
+      SITE_NUM=#{site_num}, FULL_NUM=#{full_num}, PARKING=#{parking}, CONV=#{conv}, SEC_CONV=#{sec_conv}, ETC_CONV=#{etc_conv}, 
+      AGENCY_TEL=#{agency_tel}, AGENCY_NAME=#{agency_name}, INTRO=#{intro} where CAMP_IDX=#{camp_idx}
+   </update>
+
+   <!-- 캠핑장 삭제 -->
+   <delete id="deleteCamp" parameterType="long">
+      delete from CAMP where CAMP_IDX=#{camp_idx}
+   </delete>
+   
+
+   <!-- 캠핑장 썸네일 띄우기-->
+   <select id="selectThumbnail" parameterType="long" resultType="Img">
+      select * from IMG where CAMP_IDX=#{camp_idx} and DIVISION='thumb' 
+   </select>
+
+   <!-- 캠핑장 관련 사진 전체 삭제 -->
+   <delete id="deleteImg" parameterType="long">
+      delete * from IMG where CAMP_IDX=#{camp_idx}
+   </delete>
+   
+   <!-- 각 캠핑장별 분류 등록 -->
+   <insert id="insertSort" parameterType="Sort">
+      insert into SORT values(nextval(SORT_SEQ), #{camp_idx}, #{sort_name}, #{site_name}, #{people_num}, #{site_fee}, #{fname}, #{ofname})
+   </insert>
+   
+   <update id="selectSort" parameterType="Sort">
+      select * from SORT where CAMP_IDX=#{camp_idx}
+   </update>
+
+   <update id="updateSort" parameterType="Sort">
+      update SORT set SORT_NAME=#{sort_name}, SITE_NAME=#{site_name}, PEOPLE_NUM=#{people_num}, 
+      SITE_FEE=#{site_fee}, FNAME=#{fname}, OFNAME=#{ofname} where SORT_IDX=#{sort_idx}
+   </update>
+
+   <!-- 각 캠핑장별 분류별 삭제-->
+   <delete id="deleteSort" parameterType="long">
+      delete * from SORT where SORT_IDX=#{sort_idx}
+   </delete>
+</mapper>   

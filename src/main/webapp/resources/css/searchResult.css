@@ -1,0 +1,304 @@
+@charset "UTF-8";
+
+
+	html,body {height:100%;
+				width:100%; 
+				margin:0; 
+				padding:0;
+				
+				}
+
+ 	
+	
+	.grid-container {
+		height:100%;
+		width: 100%;
+	  display: grid;
+	 grid-template-columns: 1fr 1fr;
+ 	 grid-template-rows: 0.5fr 2fr 0.5fr;
+  	gap: 1px 1px;
+  	grid-template-areas: "header header" "body body" "footer footer";
+	}
+	
+	.header {
+	  padding:5px; 
+	  display: grid;
+	  grid-template-columns: 0.5fr 2.0fr 0.5fr;
+	  grid-template-rows: 1fr;
+	  gap: 1px 1px;
+	  grid-template-areas: "logo searchbar mypage";
+	  grid-area: header;
+	  background-color: #333f57;
+	}
+	
+	.logo { grid-area: logo;
+			text-align: center; 
+	}
+	
+	.mypage { grid-area: mypage; 
+				text-align: center; 
+			}
+	
+	.searchbar { 
+	width: 100%;
+	height: 100%;
+	grid-area: searchbar; 
+	text-align: center; 
+	}	
+	
+	.body {
+ 	  padding:30; 
+	  display: grid;
+	  grid-template-columns: auto 1fr;
+	  grid-template-rows: 1fr;
+	  gap: 1px 1px;
+	  grid-template-areas: "list map";
+	  grid-area: body;
+	}
+	
+	.list { grid-area: list;
+			width: auto; 
+			max-width: 100%;
+			max-height: 100%;
+			display: grid;
+			  grid-template-columns: 1fr;
+			  grid-template-rows: 1.8fr 0.2fr;
+			  gap: 1px 1px;
+			  grid-template-areas: "list-list-camp" "list-list-button";
+			}
+	.list-list-camp { grid-area: list-list-camp; 
+			max-width: 100%;
+			width: 100%;
+			max-height: 100%;}
+	
+	.list-list-button { 
+			grid-area: list-list-button; 
+			max-width: 100%;
+			max-height: 100%;
+			display: ruby-base;
+			}			
+			
+	
+	.map { 
+			width: 100%; height: 100%;
+			 max-width: 100%;
+			  max-height: 100%;
+			grid-area: map; 
+			
+			}
+	#kakaoMap {
+	
+		width: auto; height: 100vh;
+		position: sticky; 
+		top: 0; 
+		position: -webkit-sticky;
+	}		
+	
+	.footer {
+	  padding:30; 
+	  display: grid;
+	  grid-template-columns: 1fr;
+	  grid-template-rows: 1fr;
+	  gap: 1px 1px;
+	  grid-template-areas: "footer2";
+	  grid-area: footer;
+ 	  background-color: #f5f7fc;
+ 	  background-position: center;
+	  background-image: url('../images/bg_1.png');
+ 	  /* opacity: 0.1;
+ 	  z-index: 1;
+ 	  position: relative; */
+	}
+
+	
+	.footer2 { grid-area: footer2; 
+			}
+	
+	.list-grid-container {
+	  
+	  display: grid;
+	  grid-template-columns: 0.8fr 1.2fr;
+	  grid-template-rows: 1fr;
+	  gap: 10px 1px;
+	 grid-template-areas: "list-campPic list-campInform";
+	 cursor: pointer;
+	 
+	}
+	
+	.list-campPic { 
+	  width : 375;
+	  height: 250;
+	  float: center;
+	  grid-area: list-campPic; 
+	   border-radius: 10px;
+	   overflow: hidden;
+	}
+	
+	.list-campPic-Wrap{
+		transform:scale(1.1); /*디폴트*/
+	   -webkit-transform:scale(1.1);     /*  크롬 */
+	  -moz-transform:scale(1.1);       /* FireFox */
+      -o-transform:scale(1.1);           /* Opera */ 
+      	
+      	-webkit-transition:.3s;
+	    -moz-transition:.3s;
+	    -ms-transition:.3s;
+	    -o-transition:.3s;
+	    transition:.3s;
+	}
+	
+	.list-campPic-Wrap:hover {
+	  transform: scale(1.2);
+	  -webkit-transform: scale(1.2);
+	  -moz-transform: scale(1.2);
+	  -ms-transform: scale(1.2);
+	  -o-transform: scale(1.2);
+	}
+	
+	.campPic{
+	 display: block;
+	 width: 100%; 
+	 height: 100%;
+	 border-radius: 10px; 
+	}
+	
+	.list-campInform {
+	  margin-left: 30;
+	  width: 476;
+	  height: 250;
+	  display: grid;
+	  grid-template-columns: 1fr 1fr;
+	  grid-template-rows: 0.7fr 1fr 0.5fr 1.8fr 1fr;
+	  gap: 1px 1px;
+	 grid-template-areas: "list-campType list-campJJim" "list-campName list-campName" "list-decoBar list-decoBar" "list-campMoreInform list-campMoreInform" "list-campRating list-campCharge";
+	  grid-area: list-campInform;
+	}
+	
+	.list-campType { grid-area: list-campType; text-align: left;  margin-top: 10; font-size: 15px;}
+	
+	.list-campJJim { grid-area: list-campJJim; text-align: right; padding:10 }
+	
+	.list-campName { grid-area: list-campName; text-align: left; font-size: 20px; font-weight:700; font-color:black;}
+	
+	.list-decoBar { grid-area: list-decoBar; text-align: left;}
+	
+	.list-campMoreInform { grid-area: list-campMoreInform; }
+	
+	.list-campRating { grid-area: list-campRating; text-align: left; font-weight:700;}
+	
+	.list-campCharge { grid-area: list-campCharge; text-align: right; font-weight:700; font-weight:700; font-color:#333F57 !important; }
+
+	.list-under-decoBar { font-color:#E8E8E8; font-weight: 100; opacity:0.2}
+
+
+*, *::before, *::after { box-sizing: border-box; }
+	
+	.product-search {
+	
+	width: 80%;
+	height: 50%;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 5px;
+  margin: 0 auto;
+  box-shadow: rgba(0,0,0,.172549) 0 6px 12px 0;
+  cursor: pointer;
+}
+
+.search-element {
+  display: flex;
+  flex-grow: 2;
+  flex-direction: column;
+  border-right: 1px solid rgba(10,10,10,.1);
+  padding: 1em;
+}
+
+.search-label {
+  font-weight: 700;
+}
+
+.search-input {
+  border: none;
+  appearance: none;
+  outline: none;
+  width: 100%;
+ 
+}
+
+.search-input:focus {
+  box-shadow: 0px 2px 0px 0px tomato;
+}
+
+.search-button {
+  display: inline-block;
+  flex-grow: 1;
+  height: 100%;
+  
+  padding: 0 2em;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 100;
+  border: 0;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: white !important;
+  background-color: #ff6b6b;
+  transition: background-color 0.8s ease;
+}
+
+.search-button:hover {
+  background-color: HSLA(345, 100%, 60%, 1.00);
+}
+
+
+.heart{
+
+border: 0;
+outline: 0;
+color:gray;
+background-color:transparent;
+}
+
+.heart:hover{
+	color:#ff6b6b;
+}
+
+.clickedHeart{
+
+border: 0;
+outline: 0;
+color:gray;
+}
+
+.clickedHeart:hover{
+	color:black;
+}
+
+.myOverlay{
+	align-items: center; 
+	background-color: rgb(255, 255, 255); 
+	border-radius: 28px; 
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.18) 0px 1px 2px; 
+	color: black; 
+	display: flex; 
+	height: 28px; 
+	justify-content: center; 
+	padding: 0px 8px; 
+	position: relative; 
+	white-space: nowrap;
+	font-weight:bold;
+	font-color:#141414 !important;
+	cursor:pointer;
+	transition-timing-function: linear;
+	
+}
+.myOverlay:hover{
+	-webkit-transform:scale(1.1);
+    -moz-transform:scale(1.1);
+    -ms-transform:scale(1.1);   
+    -o-transform:scale(1.1);
+    transform:scale(1.1);
+}

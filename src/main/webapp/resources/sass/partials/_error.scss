@@ -1,0 +1,91 @@
+/*====================================================
+   error-area
+ ====================================================*/
+.error-area {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  .error-actions {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    @media #{$small_mobile} {
+      right: 30px;
+    }
+    ul {
+      li {
+        display: inline-block;
+        margin-right: 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+        a {
+          color: $theme-color;
+          font-size: $default-font-2;
+          font-weight: $font-weight-medium;
+          @include transition(0.3s);
+          position: relative;
+          padding-bottom: 3px;
+          &:after {
+            position: absolute;
+            content: '';
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: $theme-color-2;
+            @include transition(0.3s);
+          }
+          &:hover {
+            color: $theme-color-2;
+            &:after {
+              width: 100%;
+              right: auto;
+              left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .error-shape:before,
+  .error-shape:after,
+  &:before,
+  &:after {
+    position: absolute;
+    content: '';
+    width: 300px;
+    height: 300px;
+    top: 15px;
+    left: 16px;
+    background-image: url("../images/dots.png");
+    background-size: cover;
+    background-position: center;
+    @include border-radius(50%);
+    z-index: -1;
+    opacity: 0.2;
+  }
+  &:after {
+    left: auto;
+    right: 15px;
+    bottom: 10px;
+    top: auto;
+  }
+  .error-shape:before,
+  .error-shape:after {
+    width: 150px;
+    height: 150px;
+  }
+  .error-shape:before {
+    left: 200px;
+    top: auto;
+    bottom: 200px;
+  }
+  .error-shape:after {
+    left: auto;
+    right: 200px;
+    top: 200px;
+  }
+}

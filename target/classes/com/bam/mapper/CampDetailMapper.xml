@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.CampDetailMapper">
+
+
+	<!-- camp_idx에 해당하는 캠핑장 정보 검색 -->
+	<select id="selectCampInfo" parameterType="int" resultType="Camp">
+		select * from CAMP where CAMP_IDX=#{camp_idx}
+	</select>
+	
+	<!-- 각 캠핑장별 분류 전체 검색 -->
+	<select id="selectSort" parameterType="hashmap" resultType="Sort">
+		select * from SORT where CAMP_IDX=#{camp_idx} and SORT_NAME=#{sort_name}
+	</select>
+	
+	<!-- 각 캠핑장별 분류 이름 검색(ex, 글램핑, 카라반 ...) -->
+	<select id="selectSortName" parameterType="int" resultType="String">
+		select SORT_NAME from SORT where CAMP_IDX=#{camp_idx} group by SORT_NAME
+	</select>
+	
+	<!-- 캠핑장 상세사진 띄우기-->
+	<select id="selectDetailImg" parameterType="int" resultType="Img">
+		select * from IMG where CAMP_IDX=#{camp_idx} and DIVISION='detail' 
+	</select>
+	<!-- 캠핑장 예약 날짜 가능 여부 확인 -->
+	<select id="selectTotalBooking" parameterType="hashmap" resultType="int">
+		<![CDATA[
+		select ifnull(count(*),0) from BOOKING where CAMP_IDX = #{camp_idx}
+		and CHECK_IN <= #{date} and CHECK_OUT >= #{date} and USING_STATE not in ('T')
+		]]>
+	</select>
+</mapper>	

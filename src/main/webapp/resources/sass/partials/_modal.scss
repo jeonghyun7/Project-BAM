@@ -1,0 +1,67 @@
+/*===== report-modal =====*/
+.modal-form {
+  .modal-dialog.modal-lg {
+    @media #{$extra-device4} {
+      width: 500px;
+    }
+    @media #{$large_mobile_three} {
+      width: auto;
+    }
+  }
+  .modal-top {
+    border-bottom: 1px solid $color;
+    margin-bottom: 38px;
+    padding: 25px 30px 23px 30px;
+    .close-arrow {
+      opacity: 1;
+      span {
+        font-size: $display-2;
+        color: $theme-color;
+        @include transition(0.3s);
+        &:hover {
+          color: $theme-color-2;
+          @include transform(rotate(90deg));
+        }
+      }
+    }
+    .modal-title {
+      font-size: $display-3;
+      color: $theme-color;
+      @media #{$small_mobile_two} {
+        font-size: $default-font;
+      }
+      span {
+        color: $theme-color-4;
+        font-size: $display-2;
+      }
+    }
+    .modal-sub {
+      font-weight: $font-weight-semi-bold;
+    }
+  }
+  .alert-content {
+    .warning-icon {
+      color: $color-5;
+      font-size: $display-8;
+      display: inline-block;
+    }
+    .modal-title {
+      line-height: 25px;
+      font-weight: $font-weight-semi-bold;
+    }
+  }
+  .contact-form-action {
+    padding: 0 30px 30px 30px;
+  }
+
+  .btn-box {
+    .theme-btn {
+      line-height: 40px;
+    }
+  }
+  .btn-box.text-right {
+    @media #{$small_mobile_two} {
+      text-align: left;
+    }
+  }
+}

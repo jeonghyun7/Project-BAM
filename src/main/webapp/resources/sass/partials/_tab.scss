@@ -1,0 +1,55 @@
+.tab-shared {
+  .nav-tabs {
+    border-bottom: none;
+    li {
+      margin-bottom: 0;
+      margin-right: 5px;
+      &:last-child {
+        margin-right: 0;
+      }
+      @media #{$large_mobile_three} {
+        margin-bottom: 3px;
+      }
+      .nav-link {
+        border: none;
+        padding-top: 0;
+        padding-bottom: 0;
+        span {
+          font-size: $display-4;
+        }
+        &:hover {
+          background-color: $color-light;
+          color: $theme-color-2;
+        }
+        &:after {
+          position: absolute;
+          content: '';
+          bottom: 0;
+          left: 50%;
+          @include transform(translateX(-50%));
+          width: 0;
+          height: 0;
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-top: 8px solid $color-light;
+          opacity: 0;
+          visibility: hidden;
+          @include transition(0.3s);
+        }
+        &.active {
+          background-color: $color-light;
+          color: $theme-color-2;
+          &:after {
+            bottom: -8px;
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+      .theme-btn {
+        background-color: rgba(255, 255, 255, 0.1);
+        line-height: 45px;
+      }
+    }
+  }
+}

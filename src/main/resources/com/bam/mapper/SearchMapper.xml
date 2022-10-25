@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.SearchMapper"><!-- route of mapping to java -->
+	<select id="selectSearchedListOfCamp" resultType="CampAndImg" parameterType="hashmap">
+		select * from CAMP join IMG on CAMP.CAMP_IDX = IMG.CAMP_IDX where CAMP.ADDRESS like concat('%',#{search},'%') and IMG.DIVISION='thumb' order by TOTAL_BOOKING desc
+	</select>
+	
+	<select id="selectAverageStar" resultType="Float" parameterType="int">
+		select avg(STAR) from REVIEW where CAMP_IDX=#{camp_idx}
+	</select>
+	
+	<select id="selectMinFeeOfCamp" resultType="long" parameterType="int">
+		select min(SITE_FEE) from SORT where CAMP_IDX=#{camp_idx}
+	</select>
+	
+	<select id="selectCheckBookingAvailable" resultType="int" parameterType="hashmap">
+		<![CDATA[
+		select ifnull(count(*),0) from BOOKING where CAMP_IDX = #{camp_idx}
+		and CHECK_IN <= #{date} and CHECK_OUT >= #{date} and USING_STATE not in ('T')
+		]]>
+	</select>
+	
+	<select id="selectCountSearchFinalList" resultType="long" parameterType="hashmap">
+		select count(*) from CAMP join IMG on CAMP.CAMP_IDX = IMG.CAMP_IDX where CAMP.ADDRESS like concat('%',#{search},'%') and IMG.DIVISION='thumb'
+		<if test='@com.bam.utils.MyBatisCheck@notEmpty(exceptList)'>
+			and CAMP.CAMP_IDX not in 
+		<foreach item="except" collection="exceptList" open="(" separator="," close=")">
+			(#{except.camp_idx})
+		</foreach>
+		</if>
+	</select>
+	
+	<select id="selectSearchFinalList" resultType="CampAndImg" parameterType="hashmap">
+		select * from CAMP join IMG on CAMP.CAMP_IDX = IMG.CAMP_IDX where CAMP.ADDRESS like concat('%',#{search},'%') and IMG.DIVISION='thumb'
+		<!-- 스프링에서 제공되는 mybatis에서 null 체크할수있는 함수적용  -->
+		<if test='@com.bam.utils.MyBatisCheck@notEmpty(exceptList)'>
+			and CAMP.CAMP_IDX not in 
+		<foreach item="except" collection="exceptList" open="(" separator="," close=")">
+			(#{except.camp_idx})
+		</foreach>
+		</if>
+		<![CDATA[
+		order by TOTAL_BOOKING desc
+		limit #{page.startRow},#{page.endRow}
+		]]>
+	</select>
+</mapper>

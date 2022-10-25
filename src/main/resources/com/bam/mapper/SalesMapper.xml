@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.SalesMapper"><!-- route of mapping to java -->
+	
+	<select id="selectDailyAll" resultType="Revenue" parameterType="String">
+			<!-- 정현 수정문 -->
+			SELECT 
+			SUM(total_fee) as total_sale, SUM(service_fee) as earning, 
+		    SUM(total_fee) - SUM(service_fee) as profit,
+		    ROUND(((SUM(service_fee) / SUM(total_fee) )*100), 2) as ROS,
+		    COUNT(*) as count_sale, 
+			date_format(bdate, '%Y-%m-%d') as day
+		FROM 
+			BOOKING
+		WHERE
+		    date_format(bdate, '%Y-%m')=#{month} and S_NO=1
+		GROUP BY 
+			date_format(bdate, '%Y-%m-%d')
+		ORDER BY 
+			date_format(bdate, '%Y-%m-%d') asc 
+	</select>
+	
+	<select id="selectMonthlyAll" resultType="Revenue" parameterType="String">
+			<!-- 정현 수정문 -->
+			SELECT 
+			SUM(total_fee) as total_sale, SUM(service_fee) as earning, 
+		    SUM(total_fee) - SUM(service_fee) as profit,
+		    ROUND(((SUM(service_fee) / SUM(total_fee) )*100), 2) as ROS,
+		    COUNT(*) as count_sale, 
+			date_format(bdate, '%Y-%m') as month
+		FROM 
+			BOOKING
+		WHERE
+		    date_format(bdate, '%Y')=#{year} and S_NO=1
+		GROUP BY 
+			date_format(bdate, '%Y-%m')
+		ORDER BY 
+			date_format(bdate, '%Y-%m') asc
+	</select>
+
+	<select id="selectYearlyAll" resultType="Revenue">		
+			<!-- 정현 수정문 -->
+			SELECT 
+			SUM(total_fee) as total_sale, SUM(service_fee) as earning, 
+		    SUM(total_fee) - SUM(service_fee) as profit,
+		    ROUND(((SUM(service_fee) / SUM(total_fee) )*100), 2) as ROS,
+		    COUNT(*) as count_sale, 
+			date_format(bdate, '%Y') as year 
+		FROM 
+			BOOKING
+		WHERE
+		    S_NO=1
+		GROUP BY 
+			date_format(bdate, '%Y')
+		ORDER BY 
+			date_format(bdate, '%Y') asc
+	</select>
+	
+	
+	<select id="selectDailyByCamp" resultType="Revenue" parameterType="hashmap">
+			<!-- 정현 수정문 -->
+			SELECT
+		    c.camp_name,
+		    b.camp_idx,
+			SUM(b.total_fee) as total_sale, SUM(b.service_fee) as earning, 
+		    SUM(b.total_fee) - SUM(b.service_fee) as profit,
+		    ROUND(((SUM(b.total_fee) - SUM(b.service_fee)) / SUM(b.total_fee))*100, 2) as ROS,
+		    COUNT(b.imp_uid) as count_sale, 
+			date_format(b.bdate, '%Y-%m-%d') as day
+		FROM 
+			BOOKING b
+		left outer join
+		    CAMP c
+		on c.camp_idx = b.camp_idx
+		WHERE
+		    b.CAMP_IDX=#{camp_idx} and date_format(b.bdate, '%Y-%m')=#{month} and b.S_NO=1
+		GROUP BY 
+			date_format(b.bdate, '%Y-%m-%d'), c.camp_name, b.camp_idx
+		ORDER BY 
+			date_format(b.bdate, '%Y-%m-%d') asc
+	</select>
+	
+	<select id="selectMonthlyByCamp" resultType="Revenue" parameterType="hashmap">
+			<!-- 정현 수정문 -->
+			SELECT
+		    c.camp_name,
+		    b.camp_idx,
+			SUM(b.total_fee) as total_sale, SUM(b.service_fee) as earning, 
+		    SUM(b.total_fee) - SUM(b.service_fee) as profit,
+		    ROUND(((SUM(b.total_fee) - SUM(b.service_fee)) / SUM(b.total_fee))*100, 2) as ROS,
+		    COUNT(b.imp_uid) as count_sale, 
+			date_format(b.bdate, '%Y-%m') as month
+		FROM 
+			BOOKING b
+		LEFT OUTER JOIN
+		    CAMP c
+		ON 
+			c.camp_idx = b.camp_idx
+		WHERE
+		    b.CAMP_IDX=#{camp_idx} and date_format(b.bdate, '%Y')=#{year} and b.S_NO=1
+		GROUP BY 
+			date_format(b.bdate, '%Y-%m'), c.camp_name, b.camp_idx
+		ORDER BY 
+			date_format(bdate, '%Y-%m') asc
+
+	</select>
+	
+	<select id="selectYearlyByCamp" resultType="Revenue" parameterType="Integer">
+			<!-- 정현 수정문 -->
+			SELECT
+		    c.camp_name,
+		    b.camp_idx,
+			SUM(b.total_fee) as total_sale, SUM(b.service_fee) as earning, 
+		    SUM(b.total_fee) - SUM(b.service_fee) as profit,
+		    ROUND(((SUM(b.total_fee) - SUM(b.service_fee)) / SUM(b.total_fee))*100, 2) as ROS,
+		    COUNT(b.imp_uid) as count_sale, 
+			date_format(b.bdate, '%Y') as year
+		FROM 
+			BOOKING b
+		LEFT OUTER JOIN
+		    CAMP c
+		ON 
+			c.camp_idx = b.camp_idx
+		WHERE
+		    b.CAMP_IDX=#{camp_idx} and b.S_NO=1
+		GROUP BY 
+			date_format(b.bdate, '%Y'), c.camp_name, b.camp_idx
+		ORDER BY 
+			date_format(bdate, '%Y') asc		
+	</select>
+
+</mapper>

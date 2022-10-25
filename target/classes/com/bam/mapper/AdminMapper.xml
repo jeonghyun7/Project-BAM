@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.AdminMapper"><!-- route of mapping to java -->
+	<select id="selectAdmin" resultType="int" parameterType="hashmap">
+		select ifnull(count(*), 0) from ADMIN where NAME = #{admin.name} and PWD = #{admin.pwd}
+	</select>
+	
+	<select id="selectCountMember" resultType="int">
+		select ifnull(count(*), 0) from MEMBER
+	</select>
+	
+	<select id="selectCountLeaveMember" resultType="int">
+		select ifnull(count(*), 0) from L_MEMBER
+	</select>
+	
+	<select id="selectCountCamp" resultType="int">
+		select ifnull(count(*), 0) from CAMP
+	</select>
+	
+	<select id="selectCountBooking" resultType="int">
+		select ifnull(count(*), 0) from BOOKING
+	</select>
+	
+	<select id="selectCountCurrentBooking" resultType="int">
+		select ifnull(count(*), 0) from BOOKING where BDATE like SYSDATE()
+	</select>
+	
+	<select id="selectCountInquiry" resultType="int">
+		select ifnull(count(*), 0) from INQUIRY
+	</select>
+	
+	<select id="selectCountInquiryUnchecked" resultType="int">
+		select ifnull(count(*), 0) from INQUIRY where S_NO = 1
+	</select>
+	
+	<select id="selectSumTotalFeeOnDate" resultType="long" parameterType="String">
+		select ifnull(sum(TOTAL_FEE), 0) from BOOKING where date_format(BDATE, '%Y-%m-%d') = #{date}
+	</select>
+</mapper>

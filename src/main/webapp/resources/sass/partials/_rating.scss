@@ -1,0 +1,176 @@
+/*== rating__list ==*/
+.rating-list {
+  li {
+    display: inline-block;
+    padding-right: 20px;
+    @media #{$small_mobile_two} {
+      display: block;
+      padding-right: 0;
+      padding-bottom: 30px;
+    }
+    .la-star {
+      color: $color-5;
+      font-size: $default-font;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
+    .review-label {
+      display: block;
+      position: relative;
+      user-select: none;
+      margin-top: 5px;
+      input {
+        opacity: 0;
+        position: absolute;
+        cursor: pointer;
+        &:checked ~ .review-mark {
+          border-color: $theme-color-2;
+          &:before {
+            opacity: 1;
+            @include transform(scale(1));
+          }
+        }
+      }
+      .review-mark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        border-width: 2px;
+        border-style: solid;
+        border-color: $color;
+        border-image: initial;
+        @include border-radius(50%);
+        @include transition(0.3s);
+        &:before {
+          top: 2px;
+          left: 2px;
+          position: absolute;
+          content: '';
+          width: 10px;
+          height: 10px;
+          background-color: $theme-color-2;
+          opacity: 0;
+          @include transform(scale(0.1));
+          @include border-radius(50%);
+          @include transition(0.3s);
+        }
+      }
+    }
+  }
+}
+
+.review-content {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  @media #{$laptop_m_four} {
+    display: block;
+  }
+  .review-rating-summary {
+    text-align: center;
+    @media #{$laptop_m_four} {
+      text-align: left;
+      margin-bottom: 40px;
+    }
+  }
+  .stats-average__count-count {
+    color: $theme-color;
+    font-size: $display-8;
+    font-weight: $font-weight-semi-bold;
+  }
+  .stats-average__rating {
+    margin-top: 15px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    .rating-rating {
+      span {
+        font-size: $display-3;
+      }
+    }
+  }
+  .course-rating-text {
+    margin-top: 5px;
+    font-size: $display-4;
+    color: $theme-color-4;
+  }
+
+  .review-rating-widget {
+    margin-top: -12px;
+    margin-left: 80px;
+    width: 100%;
+    color: $theme-color-4;
+    @media #{$laptop_m_four} {
+      margin-left: 0;
+    }
+  }
+  .review-rating-rate {
+    .review-rating-rate__items {
+      margin-bottom: 10px;
+      @media #{$small_mobile_four} {
+        margin-bottom: 15px;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .review-rating-inner__item {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+      align-items: center;
+      @media #{$small_mobile_four} {
+        display: block !important;
+      }
+      .review-rating-rate__item-text {
+        text-transform: uppercase;
+        font-weight: $font-weight-medium;
+        font-size: $default-font-2;
+        width: 75px;
+        @media #{$small_mobile_four} {
+          width: 100%;
+          margin-bottom: 5px;
+        }
+      }
+      .review-rating-rate__item-fill {
+        width: 310px;
+        height: 20px;
+        background-color: rgba(127, 136, 151, 0.1);
+        @include border-radius(4px);
+        margin-right: 15px;
+        @media #{$small_mobile_four} {
+          width: 100%;
+          margin-right: 0;
+          margin-bottom: 5px;
+        }
+        .review-rating-rate__item-fill__fill {
+          background-color: $color-5;
+          @include border-radius(4px);
+          display: block;
+          width: 77%;
+          height: 100%;
+        }
+        .rating-fill-width2 {
+          width: 54%;
+        }
+        .rating-fill-width3 {
+          width: 14%;
+        }
+        .rating-fill-width4 {
+          width: 5%;
+        }
+        .rating-fill-width5 {
+          width: 2%;
+        }
+      }
+      .review-rating-rate__item-percent-text {
+        opacity: 0.8;
+      }
+    }
+  }
+}

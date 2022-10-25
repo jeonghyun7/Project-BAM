@@ -1,0 +1,195 @@
+/*====================================================
+   sidebar
+ ====================================================*/
+.widget-title {
+  font-size: $display-3;
+  color: $theme-color;
+  font-weight: $font-weight-semi-bold;
+  padding-bottom: 15px;
+  position: relative;
+  @media #{$small_mobile_two} {
+    font-size: $display-3;
+  }
+}
+
+.author-verified-badge {
+  .author__verified-badge {
+    background-color: $theme-color-5;
+    color: $color-light;
+    @include border-radius(4px);
+    font-size: $default-font;
+    font-weight: $font-weight-medium;
+    text-align: center;
+    padding: 15px 0;
+    cursor: help;
+    span {
+      font-size: $display-4;
+    }
+  }
+}
+/*====== sidebar =====*/
+.sidebar {
+  border: 1px solid rgba(128, 137, 150, 0.2);
+  padding: 40px 30px 0 30px;
+  @include border-radius(4px);
+  @media #{$tab_device} {
+    margin-top: 40px;
+    margin-bottom: 50px;
+  }
+  @media #{$large_mobile} {
+    margin-bottom: 50px;
+  }
+  @media #{$small_mobile} {
+    margin-top: 40px;
+    margin-bottom: 50px;
+  }
+  .sidebar-widget {
+    margin-bottom: 40px;
+    #showmore-1 {
+      max-width: 100% !important;
+    }
+  }
+  .static-info {
+    ul {
+      display: -webkit-flex;
+      display: -ms-flex;
+      display: flex;
+      flex-wrap: wrap;
+      @media #{$laptop_m_four} {
+        display: block;
+      }
+    }
+    li {
+      flex-basis: 50%;
+      .la {
+        color: $theme-color;
+        background-color: rgba(53, 63, 87, 0.1);
+      }
+      &:hover {
+        .la {
+          color: $color-light;
+          background-color: $theme-color-2;
+        }
+      }
+    }
+  }
+  .booking-content {
+    @media #{$laptop_m_four} {
+      display: block !important;
+    }
+    .input-number-group {
+      &:nth-child(1) {
+        @media #{$laptop_m_four} {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+  .opening-hours {
+    .theme-btn {
+      padding-right: 10px;
+      padding-left: 10px;
+      line-height: 30px;
+      font-size: $default-font-3;
+    }
+    .list-items {
+      li {
+        color: $theme-color;
+        span {
+          color: $theme-color-4;
+        }
+      }
+    }
+  }
+  .rating-list  {
+    li {
+      display: block;
+      padding-right: 0;
+      padding-bottom: 10px;
+      .review-label {
+        display: inline-block;
+        margin-top: 4px;
+        float: left;
+        margin-right: 28px;
+      }
+    }
+  }
+}
+
+.recent-item {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  .recent-img {
+    margin-right: 13px;
+    img {
+      width: 90px;
+      height: 90px;
+      @include border-radius(4px);
+    }
+  }
+  .recentpost-body {
+    .recent__meta {
+      font-size: $default-font-3;
+      font-weight: $font-weight-medium;
+    }
+    a {
+      color: $theme-color;
+      @include transition(0.3s);
+      &:hover {
+        color: $theme-color-2;
+      }
+    }
+    .recent__link {
+      font-size: $default-font-2;
+      color: $theme-color;
+      font-weight: $font-weight-semi-bold;
+      line-height: 20px;
+      @include transition(0.3s);
+      &:hover {
+        color: $theme-color-2;
+      }
+    }
+  }
+}
+
+.ui-widget.ui-widget-content {
+  border: none;
+  background-color: $color-1;
+  @include border-radius(30px);
+  height: 6px;
+  margin-left: 10px;
+  margin-right: 10px;
+  .ui-slider-range {
+    background-color: $theme-color-2;
+  }
+  .ui-slider-handle {
+    background-color: $theme-color-2;
+    @include box-shadow(0 0 20px rgba(0, 0, 0, 0.05));
+    border: 7px solid $color-light;
+    @include border-radius(30px);
+    height: 22px;
+    width: 22px;
+    top: -8px;
+    cursor: ew-resize;
+    outline: 0;
+  }
+}
+.price-slider-amount {
+  padding-top: 24px;
+  padding-left: 7px;
+  font-weight: $font-weight-semi-bold;
+  .filter__label {
+    color: $theme-color;
+    margin: 0;
+    font-size: $display-4;
+  }
+  .amounts {
+    border: none;
+    font-weight: $font-weight-medium;
+    color: $theme-color-4;
+    @media #{$small_mobile_two} {
+      width: 50%;
+    }
+  }
+}

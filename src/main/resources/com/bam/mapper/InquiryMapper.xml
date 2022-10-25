@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.InquiryMapper">
+
+	<!-- 문의글 전체 목록 검색 -->
+	<select id="selectInquiry" resultType="Inquiry">
+		select * from INQUIRY
+	</select>
+	
+	<!-- 문의글 전체 삭제 -->
+	<delete id="deleteAllInquiry">
+		delete * from INQUIRY
+	</delete>	
+
+	<!-- 각 문의글 삭제 -->
+	<delete id="deleteInquiry" parameterType="Inquiry">
+		delete * from INQUIRY where INQ_IDX=#{inq_idx}
+	</delete>	
+	
+</mapper>	

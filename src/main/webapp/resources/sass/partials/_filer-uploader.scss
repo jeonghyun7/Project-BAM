@@ -1,0 +1,58 @@
+.upload-btn-box {
+  .jFiler-input {
+    width: 170px;
+    border: none;
+    background-color: transparent;
+    height: auto;
+    font-size: $default-font-3;
+    color: $theme-color-4;
+    font-weight: $font-weight-medium;
+    .jFiler-input-caption {
+      display: none;
+    }
+    .jFiler-input-button {
+      float: none;
+      padding: 10px 0;
+      position: relative;
+      color: $color-light-grey;
+      &:after {
+        position: absolute;
+        content: 'Upload a Photo';
+        top: 0;
+        left: 0;
+        padding-top: 10px;
+        color: $theme-color-4;
+        width: 100%;
+        height: 100%;
+        padding-left: 30px;
+      }
+      &:before {
+        position: absolute;
+        content: "\f2b5";
+        top: 10px;
+        left: 20px;
+        font-family: "LineAwesome";
+        color: $theme-color-4;
+        font-size: $display-4;
+      }
+    }
+  }
+}
+
+.drag-and-drop-wrap {
+  .drag-and-drop-file {
+    .jFiler-input-dragDrop {
+      background-color: transparent;
+      .jFiler-input-inner {
+        .jFiler-input-text {
+          .or-divider {
+            display: none;
+          }
+        }
+        .jFiler-input-choose-btn {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}

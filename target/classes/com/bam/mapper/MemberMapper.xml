@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 여기서 매퍼 네임스페이스는 인터페이스 파일로 받아와야 함 -->
+
+<mapper namespace="com.bam.mapper.MemberMapper">
+	<!-- Interface로 설정해야 된다는 점이 중요합니다. 파일 반환형, 파라미터, 이름은 xml mapper에서 쓴 걸 그대로 
+		사용해야 함 또한 interface이기 때문에 내부 구현 안해도됨 -->
+
+	<!-- 회원가입 -->
+	<insert id="signUp" parameterType="Member">
+		insert into MEMBER (email, name, nickname, pwd, approval_status, approval_key)
+		values(#{email}, #{name}, #{nickname}, #{pwd},
+		'false', #{approval_key})
+	</insert>
+
+
+	<!-- 로그인 -->
+	<select id="login" parameterType="String" resultType="Member">
+		select * from MEMBER where email = #{email}
+	</select>
+	
+	<!-- 이메일 체크 -->
+	<select id="emailCheck" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*) from MEMBER
+			where email = #{email}
+		]]>
+	</select>
+	
+	<!-- 이메일 인증  -->
+	<update id="approval_member" parameterType="Member">
+		update MEMBER set approval_status = 'true' where email = #{email} and approval_key = #{approval_key}
+	</update>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="update_pwd" parameterType="Member">
+		<!-- #{}는 뷰에서 name속성으로 받아온 값 -->
+		update MEMBER set pwd = #{pwd} where email = #{email}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="delete_member" parameterType="Member">
+		delete from MEMBER where email = #{email} and pwd = #{pwd}
+	</delete>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="update_member" parameterType="Member">
+		update MEMBER set name = #{name}, nickname = #{nickname} where email = #{email}
+	</update>
+	
+	<insert id="insertMember" parameterType="Member">
+		insert into MEMBER values(#{email}, 1, #{name}, #{nickname}, #{pwd}, 0, #{approval_status}, #{approval_key}, 'SILVER')
+	</insert>
+	
+</mapper>

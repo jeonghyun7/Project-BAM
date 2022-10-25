@@ -1,0 +1,27 @@
+* { 
+	margin:0; 
+	padding:0; 
+}
+
+#header {
+	background-color: gray;
+}
+
+#sidemenu {
+	width: 200px;
+	background-color: cyan;
+	float: left;
+	min-height: 400px;
+} 
+
+#siteContent {
+	margin-left: 200px;
+	padding-left: 10px;
+	background-color: white;
+}
+
+#footer {
+	clear:both;
+	background-color:gray;
+	height: 30px;
+}

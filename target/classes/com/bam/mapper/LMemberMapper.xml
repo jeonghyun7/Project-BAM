@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.LMemberMapper">
+	<insert id="insertLeaveMember" parameterType="Member">
+		insert into L_MEMBER values(#{email}, #{name}, #{nickname}, SYSDATE())
+	</insert>
+	
+	<!-- 탈퇴한 회원 회원가입 (LMEMBER 삭제) -->
+	<delete id="delete_leave_member" parameterType="String">
+		delete from L_MEMBER where email = #{email}
+	</delete>	
+	
+	<!-- 탈퇴 회원 조회 -->
+	<select id="select_leave_member" parameterType="String" resultType="LMember">
+		select * from L_MEMBER where email = #{email}
+	</select>
+	
+</mapper>

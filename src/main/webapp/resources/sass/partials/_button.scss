@@ -1,0 +1,95 @@
+/*=== theme-btn ====*/
+.theme-btn {
+  font-weight: $font-weight-semi-bold;
+  font-size: $default-font-2;
+  color: $color-light;
+  line-height: 48px;
+  padding-left: 24px;
+  padding-right: 24px;
+  text-transform: capitalize;
+  background-color: $theme-color-2;
+  @include transition(0.3s);
+  @include box-shadow(0 0 40px rgba(82, 85, 90, 0.1));
+  position: relative;
+  display: inline-block;
+  @include border-radius(4px);
+  &:hover {
+    background-color: $theme-color-3;
+    color: $color-light;
+  }
+}
+
+.download-btn {
+  line-height: 55px;
+  padding-left: 55px;
+  .la {
+    font-size: $display-5;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    @include transform(translateY(-50%));
+  }
+  &:hover {
+    background-color: $theme-color-3;
+    color: $color-light;
+    border-color: $theme-color-2;
+  }
+  &:nth-child(1) {
+    background-color: $color-9;
+  }
+  &:nth-child(2) {
+    background-color: $theme-color-5;
+  }
+}
+
+#showmore-button-1.theme-btn,
+#showmore-button-2.theme-btn {
+  cursor: pointer;
+  background-color: $color-light;
+  color: $theme-color;
+  @include border-radius(30px);
+  border: 1px solid $color;
+  margin-right: auto;
+  text-align: center;
+  width: 120px;
+  padding: 0;
+  margin-left: auto;
+  line-height: 35px;
+  display: block;
+  font-size: $default-font-4;
+  &:hover {
+    background-color: $theme-color-2;
+    color: $color-light;
+    border-color: $theme-color-2;
+  }
+}
+
+.video-play-btn {
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  display: inline-block;
+  text-align: center;
+  background-color: $theme-color-2;
+  color: $color-light;
+  font-size: $display-5;
+  @include border-radius(50%);
+  @include transition(0.3s);
+  &:hover {
+    background-color: $theme-color-3;
+    color: $color-light;
+  }
+}
+
+.button-warning {
+  background-color: $color-5 !important;
+}
+.button-info {
+  background-color: $alter-color-2 !important;
+}
+.button-success {
+  background-color: $theme-color-5 !important;
+}
+.button-danger {
+  background-color: $theme-color-2 !important;
+}

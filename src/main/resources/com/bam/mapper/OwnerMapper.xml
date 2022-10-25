@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.OwnerMapper">
+   <insert id="insertInquiry" parameterType="hashmap">
+      insert into INQUIRY values(nextval(INQUIRY_SEQ), #{query.email}, 1, #{query.title}, #{query.owner_num}, #{query.content}, SYSDATE(), #{query.com_name}, #{query.com_addr}, #{query.com_tel})
+   </insert>
+   
+   <select id="selectInquiryOne" resultType="Inquiry" parameterType="String">
+      select * from INQUIRY where EMAIL = #{email}
+   </select>
+   
+   <insert id="insertCamp" parameterType="Camp">
+      <selectKey keyProperty="camp_idx" resultType="int" order="BEFORE">
+         select nextval(CAMP_SEQ) from dual
+      </selectKey>
+      insert into CAMP values(#{camp_idx}, #{camp_name}, #{address}, #{camp_tel}, #{site_num}, #{full_num}, 
+            #{parking}, #{conv}, #{sec_conv}, #{etc_conv}, #{agency_tel}, #{agency_name}, 0, #{intro}, #{bbq_fee})
+   </insert>
+   
+   <insert id="insertImgs" parameterType="hashmap">
+      <selectKey keyProperty="img_idx" resultType="int" order="BEFORE">
+         select ifnull(max(IMG_IDX), 0)+1 from IMG
+      </selectKey>
+         insert into IMG values
+      <foreach collection="list" item="img" index="index" separator=",">
+         (nextval(img_seq), #{camp.camp_idx}, #{img.fname}, #{img.ofname}, #{img.fsize}, #{img.division})
+      </foreach>
+   </insert>
+   
+   <insert id="insertSorts" parameterType="hashmap">
+      <selectKey keyProperty="sort_idx" resultType="int" order="BEFORE">
+         select ifnull(max(SORT_IDX), 0)+1 from SORT
+      </selectKey>
+         insert into SORT values
+      <foreach collection="list" item="sort" index="index" separator=",">
+         (nextval(sort_seq), #{camp.camp_idx}, #{sort.sort_name}, #{sort.site_name}, #{sort.people_num}, 
+         #{sort.site_fee}, #{sort.fname}, #{sort.ofname})
+      </foreach>
+   </insert>
+   
+   <update id="updateOwnerCampIdx" parameterType="hashmap">
+      update OWNER set CAMP_IDX = #{camp.camp_idx} where EMAIL = #{email}
+   </update>
+   
+   <update id="update_owner_camp_idx" parameterType="String">
+      update OWNER set CAMP_IDX = (null) where EMAIL = #{email}
+   </update>
+   
+   <select id="select_owner" resultType="Owner" parameterType="String">
+      select * from OWNER where email = #{email}
+   </select>
+   
+   <select id="select_camp" resultType="Camp" parameterType="int">
+      select * from CAMP where camp_idx = #{camp_idx}
+   </select>
+   
+   <select id="select_img" resultType="Img" parameterType="int">
+      select * from IMG where camp_idx = #{camp_idx} and DIVISION = 'detail'
+   </select>
+   
+   <select id="select_img_thumb" resultType="Img" parameterType="int">
+      select * from IMG where camp_idx = #{camp_idx} and DIVISION = 'thumb'
+   </select>
+   
+   <select id="select_sort" resultType="Sort" parameterType="int">
+      select * from SORT where camp_idx = #{camp_idx}
+   </select>
+   
+   <select id="select_heart" resultType="int" parameterType="int">
+      select count(*) from HEART where CAMP_IDX = #{camp_idx}
+   </select>
+   
+   <delete id="delete_camp" parameterType="int">
+      delete from CAMP where CAMP_IDX = #{camp_idx}
+   </delete>
+   
+   <update id="update_camp" parameterType="hashmap">
+      update CAMP set CAMP_NAME = #{camp.camp_name}, ADDRESS = #{camp.address}, CAMP_TEL =#{camp.camp_tel}, SITE_NUM = #{camp.site_num}, FULL_NUM = #{camp.full_num},
+      PARKING = #{camp.parking}, CONV = #{camp.conv}, SEC_CONV = #{camp.sec_conv}, ETC_CONV = #{camp.etc_conv}, AGENCY_TEL = #{camp.agency_tel}, AGENCY_NAME = #{camp.agency_name},
+      TOTAL_BOOKING = #{camp.total_booking}, INTRO = #{camp.intro}, BBQ_FEE = #{camp.bbq_fee} where CAMP_IDX = #{camp.camp_idx}
+   </update>
+   
+   <delete id="delete_img" parameterType="hashmap">
+      delete from IMG where CAMP_IDX = #{camp.camp_idx}
+   </delete>
+   
+   <delete id="delete_sort" parameterType="hashmap">
+      delete from SORT where CAMP_IDX = #{camp.camp_idx}
+   </delete>
+   
+</mapper>

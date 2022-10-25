@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bam.mapper.MemberManageMapper">
+	<select id="selectMemberInfo" resultType="com.bam.model.MemberAndOwner" parameterType="String">
+		select * from MEMBER inner join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO 
+		left outer join OWNER on MEMBER.EMAIL = OWNER.EMAIL where MEMBER.EMAIL = #{email}
+	</select>
+	
+	<select id="selectCountMember" resultType="int">
+		select count(*) from MEMBER join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO
+	</select>
+	
+	<select id="selectMembers" resultType="com.bam.model.MemberAndAuthority" parameterType="hashMap">
+	    <![CDATA[
+		select * from MEMBER join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO
+		limit #{page.startRow},#{page.endRow}
+		]]>
+	</select>
+ 
+	<select id="selectMembersByKeyword" resultType="com.bam.model.MemberAndAuthority" parameterType="hashMap">
+		<choose>
+			<when test='category.equals("name")'>
+				select * from MEMBER join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO
+				where MEMBER.NAME like concat('%',#{keyword},'%')
+			</when>
+			<when test='category.equals("email")'>
+				select * from MEMBER join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO
+				where MEMBER.EMAIL like concat('%',#{keyword},'%')
+			</when>
+			<when test='category.equals("grade")'>
+				select * from MEMBER join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO
+				where MEMBER.GRADE like concat('%',#{keyword},'%')
+			</when>
+			<when test='category.equals("authority")'>
+				select * from MEMBER join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO
+				where AUTHORITY.A_NAME like concat('%',#{keyword},'%')
+			</when>
+		</choose>
+		 <![CDATA[
+		limit #{page.startRow},#{page.endRow}
+		]]>
+	</select>
+	
+	<select id="selectCountMembersByKeyword" resultType="int" parameterType="hashMap">
+		<choose>
+				<when test='category.equals("name")'>
+					select count(*) from MEMBER join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO
+					where MEMBER.NAME like concat('%',#{keyword},'%')
+				</when>
+				<when test='category.equals("email")'>
+					select count(*) from MEMBER join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO
+					where MEMBER.EMAIL like concat('%',#{keyword},'%')
+				</when>
+				<when test='category.equals("grade")'>
+					select count(*) from MEMBER join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO
+					where MEMBER.GRADE like concat('%',#{keyword},'%')
+				</when>
+				<when test='category.equals("authority")'>
+					select count(*) from MEMBER join AUTHORITY on MEMBER.A_NO = AUTHORITY.A_NO
+					where AUTHORITY.A_NAME like concat('%',#{keyword},'%')
+				</when>
+			</choose>
+	</select>
+	
+	
+	
+	<select id="selectMember" resultType="Member" parameterType="String">
+		select * from MEMBER where EMAIL = #{email}
+	</select>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from MEMBER where EMAIL = #{email}
+	</delete>
+
+
+	<insert id="insertLeaveMember" parameterType="Member">
+		insert into L_MEMBER values(#{email}, #{name}, #{nickname}, SYSDATE())
+	</insert>
+	
+	<select id="selectOneLeaveMember" resultType="LMember" parameterType="String">
+		select * from L_MEMBER where EMAIL = #{email}
+	</select>
+	
+	<select id="selectCountsLeaveMembers" resultType="int">
+		select count(*) from L_MEMBER
+	</select>
+	
+	<select id="selectLeaveMembers" resultType="com.bam.model.LMember" parameterType="hashMap">
+	    <![CDATA[
+		select * from L_MEMBER 
+		limit #{page.startRow},#{page.endRow}
+		]]>
+	</select>
+	
+	<select id="selectLeaveMembersByKeyword" resultType="LMember" parameterType="hashMap">
+		<choose>
+			<when test='category.equals("name")'>
+				select * from L_MEMBER where NAME like concat('%',#{keyword},'%')
+			</when>
+			<when test='category.equals("email")'>
+				select * from L_MEMBER where EMAIL like concat('%',#{keyword},'%')
+			</when>
+		</choose>
+		 <![CDATA[
+		limit #{page.startRow},#{page.endRow}
+		]]>
+	</select>
+	
+	<select id="selectCountLeaveMembersByKeyword" resultType="int" parameterType="hashMap">
+		<choose>
+				<when test='category.equals("name")'>
+					select count(*) from L_MEMBER where NAME like concat('%',#{keyword},'%')
+				</when>
+				<when test='category.equals("email")'>
+					select count(*) from L_MEMBER where EMAIL like concat('%',#{keyword},'%')
+				</when>
+			</choose>
+	</select>
+	
+	<delete id="deleteLeaveMember" parameterType="String">
+		delete from L_MEMBER where EMAIL = #{email}
+	</delete>
+</mapper>

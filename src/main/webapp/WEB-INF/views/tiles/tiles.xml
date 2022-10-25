@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	
+	<!-- base-definition-client -->
+	<definition name="client-layout" template="/WEB-INF/views/tiles/layouts/client_layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/template/client_header.jsp"/>
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/client_footer.jsp"/>
+	</definition>
+
+	<!-- base-definition-admin -->
+	<definition name="admin-layout" template="/WEB-INF/views/tiles/layouts/admin_layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/template/admin_header.jsp"/>
+		<put-attribute name="menu" value="/WEB-INF/views/tiles/template/admin_side_menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/admin_footer.jsp"/>
+	</definition>
+	
+	<definition name="index" extends="client-layout">
+		<put-attribute name="title" value="불밤야밤 :: 최고의 캠핑 사이트" />
+		<put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+	</definition>	
+	
+	<definition name="client/*/*/*" extends="client-layout">
+		<put-attribute name="title" value="{3}" />
+		<put-attribute name="body" value="/WEB-INF/views/client/{1}/{2}.jsp" />
+	</definition>
+	 
+	<definition name="admin/*/*/*" extends="admin-layout">
+		<put-attribute name="title" value="{3}"/>
+		<put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}.jsp"/>
+	</definition>
+
+</tiles-definitions>

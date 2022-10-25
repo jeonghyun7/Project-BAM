@@ -1,0 +1,18 @@
+/*====================================================
+   clientlogo-area
+ ====================================================*/
+.client-logo-item {
+  display: inline-block;
+  @include transition(0.3s);
+  padding: 20px 20px;
+  img {
+    opacity: 0.4;
+    @include transition(0.3s);
+  }
+  &:hover {
+    @include transform(scale(1.03));
+    img {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,361 @@
+/*====================================================
+    contact-form-action
+ ====================================================*/
+.contact-form-action {
+  .form-group {
+    position: relative;
+    .form-icon {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      color: $theme-color-4;
+      font-size: $display-4;
+    }
+    .submit-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      line-height: 35px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
+  .label-text {
+    font-size: $default-font-3;
+    color: $theme-color;
+    font-weight: $font-weight-semi-bold;
+    text-transform: capitalize;
+    position: relative;
+  }
+  .form-control {
+    height: auto;
+    line-height: inherit;
+    padding: 12px 20px 12px 40px;
+    font-size: $default-font-4;
+    color: $theme-color;
+    border: 1px solid rgba(128, 137, 150, 0.3);
+    resize: none;
+    font-weight: $font-weight-medium;
+    @include transition(0.3s);
+    &:focus {
+      border-color: rgba(128, 137, 150, 0.6);
+      @include box-shadow(0 0 0 0);
+    }
+  }
+  .message-control {
+    height: 160px;
+  }
+}
+
+/*====================================================
+    billing-form-item
+ ====================================================*/
+.billing-form-item {
+  border: 1px solid rgba(128, 137, 150, 0.3);
+  @include border-radius(2px);
+  margin-bottom: 30px;
+  background-color: $color-light;
+  @include box-shadow(0 0 18px 0 rgba(0,0,0,.02));
+}
+.billing-title-wrap {
+  padding: 30px;
+  border-bottom: 1px solid rgba(128, 137, 150, 0.3);
+}
+.billing-content {
+  padding: 30px;
+  .contact-form-action {
+    form {
+      .form-group {
+        margin-bottom: 20px;
+        .label-text {
+          font-weight: $font-weight-semi-bold;
+          margin-bottom: 7px;
+        }
+        .form-control {
+          @include box-shadow(0 0 0 0);
+          @include border-radius(2px);
+        }
+      }
+      .time-label-group {
+        margin-bottom: 10px;
+        .label-text {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  .custom-checkbox {
+    display: inline-block;
+    margin-right: 20px;
+    @media #{$small_mobile_three} {
+      margin-right: 0;
+      display: block;
+    }
+  }
+}
+
+/*====================================================
+    booking-area
+ ====================================================*/
+.payment-option {
+  .payment-radio {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: $default-font;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: $font-weight-semi-bold;
+    color: $theme-color;
+    input[type=radio] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+      &:checked ~ .checkmark {
+        border-color: $theme-color-2;
+        &:after {
+          @include transform(scale(1));
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+      &:checked ~ .payment-active {
+       display: block;
+      }
+    }
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 19px;
+      height: 19px;
+      margin: 3px 0 0 0;
+      border: 2px solid $color-2;
+      @include border-radius(50%);
+      @include transition(0.3s);
+      &:after {
+        position: absolute;
+        left: 3px;
+        top: 3px;
+        content: '';
+        width: 9px;
+        height: 9px;
+        background-color: #f66b5d;
+        opacity: 0;
+        visibility: hidden;
+        @include transform(scale(0.1));
+        @include border-radius(50%);
+        @include transition(0.3s);
+      }
+    }
+  }
+  .payment-active {
+    display: none;
+  }
+  .payment-content {
+    .contact-form-action {
+      .row {
+        @media #{$small_mobile_two} {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.booking-list {
+  li {
+    position: relative;
+    font-size: $default-font;
+    font-weight: $font-weight-semi-bold;
+    color: $theme-color;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+    span {
+      color: $theme-color-4;
+      font-weight: $font-weight-medium;
+      font-size: $default-font-2;
+    }
+  }
+}
+.total-list {
+  li,
+  span{
+    font-size: $display-4;
+  }
+}
+
+.coupon-widget {
+  .col-lg-8 {
+    @media #{$laptop_m_four} {
+     padding-right: 15px !important;
+    }
+  }
+  .col-lg-8,
+  .col-lg-4 {
+    @media #{$laptop_m_four} {
+      -ms-flex: 0 0 100%;
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+  .btn-box {
+    @media #{$laptop_m_four} {
+      margin-top: 15px;
+    }
+  }
+}
+
+/*====================================================
+   booking-confirm-area
+ ====================================================*/
+.booking-confirm-area {
+  position: relative;
+  &:before,
+  &:after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: -45px;
+    width: 16%;
+    height: 29%;
+    background-image: url("../images/dots.png");
+    background-size: cover;
+    background-position: center;
+    @include transform(rotate(-20deg));
+    opacity: 0.2;
+  }
+  &:after {
+    left: auto;
+    bottom: auto;
+    top: 85px;
+    right: -65px;
+  }
+}
+
+.booking-confirm-page {
+  span {
+    font-size: $display-6;
+    line-height: 140px;
+    color: $theme-color-5;
+    @media #{$small_mobile_two} {
+      font-size: $display-7;
+      line-height: 100px;
+    }
+  }
+}
+
+/*====================================================
+    invoice-area
+ ====================================================*/
+.invoice-content {
+  @include border-radius(3px);
+  background-color: $color-light;
+  @include box-shadow(0 0 40px rgba(82, 85, 90, 0.1));
+  padding: 40px 40px 32px 40px;
+  border: 1px solid rgba(128, 137, 150, 0.3);
+  .widget-title {
+    font-size: $display-2;
+  }
+}
+
+.invoice-item {
+  .invoice-logo {
+    @media #{$small_mobile_two} {
+      margin-bottom: 40px;
+    }
+  }
+  .invoice-title {
+    .widget-title {
+      font-size: $display-5;
+    }
+  }
+  .invoice-details {
+    font-weight: $font-weight-medium;
+    strong {
+      color: $theme-color;
+    }
+  }
+  .invoice-details.text-right {
+    @media #{$small_mobile_four} {
+      text-align: left !important;
+    }
+  }
+  .invoice-info {
+    .widget-title {
+      font-size: $display-4;
+    }
+  }
+}
+
+.invoice-table {
+  table {
+    tr {
+      th {
+        color: $theme-color;
+        font-weight: $font-weight-semi-bold;
+        border-bottom-width: 1px;
+      }
+      th,
+      td {
+        font-size: $default-font;
+        padding: 10px 20px;
+      }
+      td {
+        font-size: $default-font-2;
+        font-weight: $font-weight-medium;
+      }
+    }
+  }
+  .invoice-table-two {
+    margin-bottom: 0;
+    tr {
+      th,
+      td {
+        border-top: none;
+        padding: 5px 0 5px 0;
+      }
+      td {
+        text-align: right;
+      }
+    }
+  }
+}
+
+/*====================================================
+    form-shared
+ ====================================================*/
+.account-assist {
+  .account__desc {
+    position: relative;
+    font-size: $display-5;
+    &:before,
+    &:after {
+      position: absolute;
+      content: '';
+      left: 0;
+      top: 50%;
+      width: 45%;
+      height: 1px;
+      background-color: rgba(128, 137, 150, 0.2);
+     @include transform(translateY(-50%));
+    }
+    &:after {
+      left: auto;
+      right: 0;
+    }
+  }
+}
+
+.form-shared {
+  .billing-form-item {
+    @include box-shadow(0 0 40px rgba(82, 85, 90, 0.1));
+    border-color: rgba(128, 137, 150, 0.2);
+  }
+}
