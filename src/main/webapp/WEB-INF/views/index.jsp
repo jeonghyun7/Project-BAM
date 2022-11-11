@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
  <style>
-    
     .card-image:after {
 		background-color:transparent !important;
     }
