@@ -81,8 +81,8 @@ public class MemberController {
 		return "redirect:mypage.bam";
 	}
 	
-	//예약 내역
-	@ResponseBody //ajax할 때 써야 하는 어노테이션 설명 찾아보기
+	// 예약 내역
+	@ResponseBody // ajax할 때 써야 하는 어노테이션 설명 찾아보기
 	@RequestMapping(value = "/booking_info.bam", method = RequestMethod.GET)
 	private ModelAndView booking_info(String email, Integer nextPage, HttpSession session) {
 		log.info("#> 접근");
@@ -90,7 +90,7 @@ public class MemberController {
 		return memberService.show_booking_info(email, nextPage, session);
 	}
 	
-	//리뷰 작성
+	// 리뷰 작성
 	@RequestMapping(value = "/add_review.bam", method = RequestMethod.POST)
 	private String add_review(Review review, String imp_uid) {
 		log.info("#> review: " + review);
@@ -98,14 +98,14 @@ public class MemberController {
 		return "redirect:mypage.bam?selected=booking";
 	}
 	
-	//찜 목록
+	// 찜 목록
 	@ResponseBody
 	@RequestMapping(value = "/heart_list.json", method = RequestMethod.GET)
 	private ModelAndView heart_list(String email, Integer nextPage, HttpSession session) {
 		return memberService.show_heart_list(email, nextPage, session);
 	}
 	
-	//찜 목록 삭제
+	// 찜 목록 삭제
 	@RequestMapping(value = "/delete_heart.bam", method = RequestMethod.POST)
 	private String delete_heart(String email, int camp_idx, HttpSession session) {
 		log.info("#> camp_idx : " + camp_idx);
